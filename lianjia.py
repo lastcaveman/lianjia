@@ -387,19 +387,6 @@ def threadingloadss(v):
     v.hall = house.hall
     v.chengjiao_detail = house.chengjiao_detail
     v.save()
-    # house = House(house_code)
-    # house.update_chengjiao()
-
-# t= threading.Thread(target=f1,args=(111,112))#创建线程
-# t.setDaemon(True)#设置为后台线程，这里默认是False，设置为True之后则主线程不用等待子线程
-# t.start()#开启线程
-
-# t = threading.Thread(target=f1, args=(111, 112))
-# t.start()
-
-# t = threading.Thread(target=f1, args=(111, 112))
-# t.start()
-
 
 def load_community(adcode):
     print(adcode)
@@ -514,7 +501,7 @@ if __name__ == '__main__':
             time.sleep(0.05)
 
         print('there are', threading.activeCount(), 'threads running')
-        t = threading.Thread(target=threadingloadss, args=(v.id,))  # 创建线程
+        t = threading.Thread(target=threadingloadss, args=(v.id,))
         t.start()
 
 
