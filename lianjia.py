@@ -1,25 +1,17 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
-import getopt
 import urllib.parse
 import urllib.request
-import copy
 import hashlib
-import codecs
 import requests
-import re
 from six.moves import queue as Queue
 import threading
 import time
 import json
-import datetime
-from bs4 import BeautifulSoup
-import pandas as pd
 from peewee import *
 import pymysql
 import base64
-import logging
 from model import Houses
 from model import Chengjiaos
 from model import Locations
@@ -305,8 +297,6 @@ class House:
         }
         content = get_data(url, payload, method='GET')
 
-        # print(content)
-
         self.city_id = content['data']['basic_info']['city_id']
         self.community_id = content['data']['basic_info']['community_id']
         self.price = content['data']['basic_info']['price']
@@ -390,8 +380,6 @@ def threadingloadss(v):
 
 def load_community(adcode):
     print(adcode)
-    # bizcircle = Locations.get(adcode=adcode)
-    # district = Locations.get(adcode=bizcircle.parent)
     city = Locations.get(adcode=adcode)
 
     url = 'http://app.api.lianjia.com/house/community/search'
