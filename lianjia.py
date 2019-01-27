@@ -450,8 +450,6 @@ def load_community(adcode):
 
 if __name__ == '__main__':
 
-
-
     poi = Poi()
     poi.load()
 
@@ -481,7 +479,6 @@ if __name__ == '__main__':
             time.sleep(2)
         threading.Thread(target=load_community, args=(v.adcode,)).start()
 
-
     houses = Houses.select().where(Houses.city == None, Houses.id >= 1)
     for v in houses:
         while threading.activeCount() > 40:
@@ -491,5 +488,3 @@ if __name__ == '__main__':
         print('there are', threading.activeCount(), 'threads running')
         t = threading.Thread(target=threadingloadss, args=(v.id,))
         t.start()
-
-
