@@ -219,8 +219,10 @@ class Poi:
             'fields': '{"city_info": "", "city_config_all": ""}'
         }
         data = get_data(url, payload, method='POST')
-
         for v in data['data']['city_config_all']['list']:
+            if v['city_id'] != 320100:
+                continue
+            print(v['city_id'])
             try:
                 location = Locations.get(level='city', adcode=v['city_id'])
             except:
@@ -452,8 +454,10 @@ if __name__ == '__main__':
 
     poi = Poi()
     poi.load()
+    print('1234')
 
     for city in poi.citys:
+        print(city)
         chengjiao = city.get_chengjiao()
         for v in chengjiao:
             try:
@@ -472,12 +476,11 @@ if __name__ == '__main__':
                 house.signed_at = v['sign_date']
                 house.save()
 
-    citys = Locations.select().where(Locations.level == 'city')
-    for v in citys:
-        while threading.activeCount() > 20:
-            # print('there are', threading.activeCount(), 'threads running')
-            time.sleep(2)
-        threading.Thread(target=load_community, args=(v.adcode,)).start()
+    # citys = Locations.select().where(Locations.level == 'city')
+    # for v in citys:
+    #     while threading.activeCount() > 20:
+    #         time.sleep(2)
+    #     threading.Thread(target=load_community, args=(v.adcode,)).start()
 
     houses = Houses.select().where(Houses.city == None, Houses.id >= 1)
     for v in houses:

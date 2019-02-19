@@ -1,5 +1,6 @@
 from peewee import *
 
+database = MySQLDatabase('home', **{'charset': 'utf8', 'use_unicode': True, 'host': 'localhost', 'user': 'root', 'password': 'pass@dbmima'})
 
 class UnknownField(object):
     def __init__(self, *_, **__): pass
@@ -69,7 +70,7 @@ class Locations(BaseModel):
 
 class Logs(BaseModel):
     query = CharField(null=True)
-    result = CharField(null=True)
+    result = TextField(null=True)
 
     class Meta:
         table_name = 'logs'
