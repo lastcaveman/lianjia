@@ -343,6 +343,8 @@ class House:
             history_i = history_i+1
             signed_at = history['desc'][history['desc'].find(
                 '，')+1:].replace('成交', '')
+            if history['price']=='暂无价格':
+                return
             try:
                 chengjiao = Chengjiaos.get(
                     house_code=self.code, signed_at=signed_at)
@@ -350,7 +352,8 @@ class House:
                 chengjiao = Chengjiaos()
                 chengjiao.house_code = self.code
                 chengjiao.signed_at = signed_at
-                chengjiao.price = history['price']
+                chengjiao.price = history['price'].replace(
+                        '万', '')
                 chengjiao.unit_price = history['desc'][0:history['desc'].find(
                     '，')].replace('单价', '')
                 chengjiao.source_price = source_price
@@ -454,7 +457,7 @@ if __name__ == '__main__':
 
     poi = Poi()
     poi.load()
-    print('1234')
+    # print('1234')
 
     for city in poi.citys:
         print(city)
@@ -482,9 +485,9 @@ if __name__ == '__main__':
     #         time.sleep(2)
     #     threading.Thread(target=load_community, args=(v.adcode,)).start()
 
-    houses = Houses.select().where(Houses.city == None, Houses.id >= 1)
+    houses = Houses.select().where( Houses.id >= 1)
     for v in houses:
-        while threading.activeCount() > 40:
+        while threading.activeCount() > 30:
             print('there are', threading.activeCount(), 'threads running')
             time.sleep(0.05)
 
