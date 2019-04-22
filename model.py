@@ -75,3 +75,17 @@ class Logs(BaseModel):
     class Meta:
         table_name = 'logs'
 
+class Stats(BaseModel):
+    check = DecimalField(constraints=[SQL("DEFAULT 0.00")], null=True)
+    date = CharField(constraints=[SQL("DEFAULT '0'")], null=True)
+    follows = DecimalField(constraints=[SQL("DEFAULT 0.00")], null=True)
+    num = IntegerField(constraints=[SQL("DEFAULT 0")], null=True)
+    period = DecimalField(constraints=[SQL("DEFAULT 0.00")], null=True)
+    price = DecimalField(constraints=[SQL("DEFAULT 0.00")], null=True)
+    type = CharField(constraints=[SQL("DEFAULT 'daily'")], null=True)
+    unit_price = DecimalField(constraints=[SQL("DEFAULT 0.00")], null=True)
+    view = DecimalField(constraints=[SQL("DEFAULT 0.00")], null=True)
+
+    class Meta:
+        table_name = 'stats'
+

@@ -455,29 +455,29 @@ def load_community(adcode):
 
 if __name__ == '__main__':
 
-    poi = Poi()
-    poi.load()
+    # poi = Poi()
+    # poi.load()
     # print('1234')
 
-    for city in poi.citys:
-        print(city)
-        chengjiao = city.get_chengjiao()
-        for v in chengjiao:
-            try:
-                house = Houses.get(house_code=v['house_code'], signed_at=v['sign_date'])
-            except:
-                house = Houses()
-                house.house_code = v['house_code']
-                house.title = v['title']
-                house.desc = v['desc']
-                price = 0
-                if 'price_str' in v.keys():
-                    price = v['price_str']
-                if 'price_unit' in v.keys():
-                    price = price + v['price_unit']
-                house.unitprice = v['unit_price_str']
-                house.signed_at = v['sign_date']
-                house.save()
+    # for city in poi.citys:
+    #     print(city)
+    #     chengjiao = city.get_chengjiao()
+    #     for v in chengjiao:
+    #         try:
+    #             house = Houses.get(house_code=v['house_code'], signed_at=v['sign_date'])
+    #         except:
+    #             house = Houses()
+    #             house.house_code = v['house_code']
+    #             house.title = v['title']
+    #             house.desc = v['desc']
+    #             price = 0
+    #             if 'price_str' in v.keys():
+    #                 price = v['price_str']
+    #             if 'price_unit' in v.keys():
+    #                 price = price + v['price_unit']
+    #             house.unitprice = v['unit_price_str']
+    #             house.signed_at = v['sign_date']
+    #             house.save()
 
     # citys = Locations.select().where(Locations.level == 'city')
     # for v in citys:
@@ -488,9 +488,9 @@ if __name__ == '__main__':
     houses = Houses.select().where( Houses.id >= 1)
     for v in houses:
         while threading.activeCount() > 30:
-            print('there are', threading.activeCount(), 'threads running')
+            # print('there are', threading.activeCount(), 'threads running')
             time.sleep(0.05)
 
-        print('there are', threading.activeCount(), 'threads running')
+        # print('there are', threading.activeCount(), 'threads running')
         t = threading.Thread(target=threadingloadss, args=(v.id,))
         t.start()
